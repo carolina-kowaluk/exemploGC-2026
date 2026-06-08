@@ -50,9 +50,7 @@ lcmd : lcmd cmd
 	   |
 	   ;
 	   
-cmd :  ID '=' exp	';' {  System.out.println("\tPOPL %EDX");
-  						   System.out.println("\tMOVL %EDX, _"+$1);
-					     }
+cmd :  exp ';' { System.out.println("\tPOPL %EDX"); }
 			| '{' lcmd '}' { System.out.println("\t\t# terminou o bloco..."); }
 					     
 					       
@@ -155,7 +153,12 @@ exp :  NUM  { System.out.println("\tPUSHL $"+$1); }
 		| exp NEQ exp		{ gcExpRel(NEQ); }											
 												
 		| exp OR exp		{ gcExpLog(OR); }											
-		| exp AND exp		{ gcExpLog(AND); }											
+		| exp AND exp		{ gcExpLog(AND); }	
+
+		| ID '=' exp	{  System.out.println("\tPOPL %EDX");
+  						       System.out.println("\tMOVL %EDX, _"+$1);
+										  System.out.println("\tPUSHL %EDX");
+					         }										
 		
 		;							
 
