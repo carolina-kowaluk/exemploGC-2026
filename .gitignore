@@ -1,0 +1,4 @@
+*.class
+*.o
+Parser.java
+Yylex.java
